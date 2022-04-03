@@ -37,7 +37,6 @@ public class ManageCards : MonoBehaviour
         if (triggeredTime)
         {
             timer += Time.deltaTime;
-            print(timer);
             if(timer > 1)
             {
                 pausedTimer = true;
@@ -51,7 +50,8 @@ public class ManageCards : MonoBehaviour
                     if(hitCount == 13)
                     {
                         PlayerPrefs.SetInt("Tries", triesCount);
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                        PlayerPrefs.SetString("status", "victory");
+                        SceneManager.LoadScene("Lab2_end");
                     }
                 }
                 else
@@ -66,6 +66,13 @@ public class ManageCards : MonoBehaviour
                 cardRow1 = "";
                 cardRow2 = "";
                 timer = 0;
+
+                if(triesCount > 40)
+                {
+                    PlayerPrefs.SetString("status", "defeat");
+                    SceneManager.LoadScene("Lab2_end");
+                }
+
             }
         }
     }
@@ -115,9 +122,7 @@ public class ManageCards : MonoBehaviour
         if(row == 1) cardName = cardNumber + "_of_hearts";
         else cardName = cardNumber + "_of_clubs";
 
-
         Sprite s1 = (Sprite)(Resources.Load<Sprite>("Cards/" + cardName));
-        print(s1);
         GameObject.Find("" + row + "_" + value).GetComponent<Tile>().SetFrontCard(s1);
 
     }
@@ -172,7 +177,8 @@ public class ManageCards : MonoBehaviour
     }
 
     void UpdateTries()
-    { 
+    {
+        print(triesCount);
         GameObject.Find("triesCount").GetComponent<Text>().text = "Tentativas: " + triesCount;
     }
 
