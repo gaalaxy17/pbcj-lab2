@@ -15,7 +15,7 @@ public class Tile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hideCard();
+        HideCard();
     }
 
     // Update is called once per frame
@@ -26,25 +26,27 @@ public class Tile : MonoBehaviour
 
     public void OnMouseDown()
     {
-        print("Pressinou num Tile");
+        /* print("Pressinou num Tile");
         if (isRevealed) hideCard();
-        else showCard();
+        else showCard(); */
+
+        GameObject.Find("gameManager").GetComponent<ManageCards>().SelectedCard(gameObject);
         
     }
 
-    public void hideCard()
+    public void HideCard()
     {
         GetComponent<SpriteRenderer>().sprite = cardBack;
         isRevealed = false;
     }
 
-    public void showCard()
+    public void ShowCard()
     {
         GetComponent<SpriteRenderer>().sprite = cardFront;
         isRevealed = true;
     }
 
-    public void setFrontCard(Sprite newFrontCard)
+    public void SetFrontCard(Sprite newFrontCard)
     {
         cardFront = newFrontCard;
     }

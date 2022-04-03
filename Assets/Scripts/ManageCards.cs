@@ -6,7 +6,12 @@ using UnityEngine.Tilemaps;
 public class ManageCards : MonoBehaviour
 {
     public GameObject card; // A carta a ser descartada
+    private bool isFirstCardSelected, isSecondCardSelected;
+    private GameObject card1, card2;
+    private string cardRow1, cardRow2;
 
+    bool pausedTimer, triggeredTime;
+    float timer;
 
     // Start is called before the first frame update
     void Start()
@@ -17,42 +22,132 @@ public class ManageCards : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (triggeredTime)
+        {
+            timer += Time.deltaTime;
+            print(timer);
+            if(timer > 1)
+            {
+                pausedTimer = true;
+                triggeredTime = false;
+                if(card1.tag == card2.tag)
+                {
+                    Destroy(card1);
+                    Destroy(card2);
+                }
+                else
+                {
+                    card1.GetComponent<Tile>().HideCard();
+                    card2.GetComponent<Tile>().HideCard();
+                }
+                isFirstCardSelected = false;
+                isSecondCardSelected = false;
+                card1 = null;
+                card2 = null;
+                cardRow1 = "";
+                cardRow2 = "";
+                timer = 0;
+            }
+        }
     }
 
     void ShowCards()
     {
+        int[] shuffledArray = CreateShuffledArray();
+        int[] shuffledArray2 = CreateShuffledArray();
+
         //Instantiate(card, new Vector3(0, 0, 0), Quaternion.identity);
-        for(int i = 0; i < 13; i++)
+        for (int i = 0; i < 13; i++)
         {
-            AddCard(i);
+            // AddCard(i);
+            AddCard(0, i, shuffledArray[i]);
+            AddCard(1, i, shuffledArray2[i]);
         }
     }
 
-    void AddCard(int rank)
+    void AddCard(int row, int rank, int value)
     {
         GameObject center = GameObject.Find("CenterOfScreen");
         float scaleX = card.transform.localScale.x;
-        float scaleFactorX = (650 * scaleX)/100.0f; 
-        Vector3 newPos = new Vector3(center.transform.position.x + ((rank - 13 / 2) * scaleFactorX), center.transform.position.y, center.transform.position.z);
+        float scaleFactorX = (650 * scaleX) / 100.0f;
+        float scaleFactorY = (945 * scaleX) / 100.0f;
+
+        Vector3 newPos = new Vector3(center.transform.position.x + ((rank - 13 / 2) * scaleFactorX), center.transform.position.y + (row-2/2) * scaleFactorY, center.transform.position.z);
         // GameObject c = (GameObject)(Instantiate(card, new Vector3(0, 0, 0), Quaternion.identity));
         // GameObject c = (GameObject)(Instantiate(card, new Vector3(rank*1.5f, 0, 0), Quaternion.identity));
         GameObject c = (GameObject)(Instantiate(card, newPos, Quaternion.identity));
-        c.tag = "" + rank;
-        c.name = "" + rank;
+        c.tag = "" + (value + 1);
+        c.name = "" + row + "_" + value ;
         string cardName = "";
         string cardNumber = "";
 
-        if (rank == 0) cardNumber = "ace";
-        else if (rank == 10) cardNumber = "joke";
+        /* if (rank == 0) cardNumber = "ace";
+        else if (rank == 10) cardNumber = "jack";
         else if (rank == 11) cardNumber = "queen";
         else if (rank == 12) cardNumber = "king";
-        else cardNumber = "" + (rank + 1);
+        else cardNumber = "" + (rank + 1); */
 
-        cardName = cardNumber + "_of_clubs";
-        Sprite s1 = (Sprite)(Resources.Load<Sprite>(cardName));
+        if (value == 0) cardNumber = "ace";
+        else if (value == 10) cardNumber = "jack";
+        else if (value == 11) cardNumber = "queen";
+        else if (value == 12) cardNumber = "king";
+        else cardNumber = "" + (value + 1);
+
+        if(row == 1) cardName = cardNumber + "_of_hearts";
+        else cardName = cardNumber + "_of_clubs";
+
+
+        Sprite s1 = (Sprite)(Resources.Load<Sprite>("Cards/" + cardName));
         print(s1);
-        GameObject.Find("" + rank).GetComponent<Tile>().setFrontCard(s1);
+        GameObject.Find("" + row + "_" + value).GetComponent<Tile>().SetFrontCard(s1);
 
     }
+
+    public int[] CreateShuffledArray()
+    {
+        int[] newArray = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+        int temp;
+        for(int t=0; t<13; t++)
+        {
+            temp = newArray[t];
+            int r = Random.Range(t, 13);
+            newArray[t] = newArray[r];
+            newArray[r] = temp;
+        }
+        return newArray;
+    }
+
+    public void SelectedCard(GameObject card)
+    {
+        if (!isFirstCardSelected)
+        {
+            string row = card.name.Substring(0, 1);
+            cardRow1 = row;
+            isFirstCardSelected = true;
+            card1 = card;
+            card1.GetComponent<Tile>().ShowCard();
+        }
+        else if(isFirstCardSelected && !isSecondCardSelected)
+        {
+            string row = card.name.Substring(0, 1);
+            cardRow2 = row;
+            isSecondCardSelected = true;
+            card2 = card;
+            card2.GetComponent<Tile>().ShowCard();
+            VerifyCards();
+        }
+
+    }
+
+    public void VerifyCards()
+    {
+        TriggerTimer();
+    }
+
+    public void TriggerTimer()
+    {
+        pausedTimer = false;
+        triggeredTime = true;
+    }
+
 }
