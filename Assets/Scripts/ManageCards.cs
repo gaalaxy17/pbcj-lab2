@@ -1,22 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class ManageCards : MonoBehaviour
 {
     public GameObject card; // A carta a ser descartada
-    private bool isFirstCardSelected, isSecondCardSelected;
-    private GameObject card1, card2;
-    private string cardRow1, cardRow2;
+    private bool isFirstCardSelected, isSecondCardSelected; // indicadores para cada carta escolhida em cada linha
+    private GameObject card1, card2; // gameObjects da primeira e segunda carta selecionada
+    private string cardRow1, cardRow2; // Linha da carta selecionada
 
-    bool pausedTimer, triggeredTime;
-    float timer;
+    bool pausedTimer, triggeredTime; // Indicador de pausa no Timer ou StartTimer
+    float timer; // Variavel de tempo
+    
+    int triesCount = 0; // Número de tentativas
+    int hitCount = 0; // Número de matches (acertos)
+    AudioSource okSound; // Som de sucesso
+
+    int lastGameScore = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         ShowCards();
+        UpdateTries();
+        okSound = GetComponent<AudioSource>();
+        lastGameScore = PlayerPrefs.GetInt("Tries", 0);
+        GameObject.Find("lastPlayed").GetComponent<Text>().text = "Jogo Anterior: " + lastGameScore;
     }
 
     // Update is called once per frame
@@ -32,8 +44,15 @@ public class ManageCards : MonoBehaviour
                 triggeredTime = false;
                 if(card1.tag == card2.tag)
                 {
+                    okSound.Play();
                     Destroy(card1);
                     Destroy(card2);
+                    hitCount++;
+                    if(hitCount == 13)
+                    {
+                        PlayerPrefs.SetInt("Tries", triesCount);
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    }
                 }
                 else
                 {
@@ -142,12 +161,19 @@ public class ManageCards : MonoBehaviour
     public void VerifyCards()
     {
         TriggerTimer();
+        triesCount++;
+        UpdateTries();
     }
 
     public void TriggerTimer()
     {
         pausedTimer = false;
         triggeredTime = true;
+    }
+
+    void UpdateTries()
+    { 
+        GameObject.Find("triesCount").GetComponent<Text>().text = "Tentativas: " + triesCount;
     }
 
 }
