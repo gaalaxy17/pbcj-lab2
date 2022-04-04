@@ -281,7 +281,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: 144}
+  m_AnchoredPosition: {x: 3, y: 110}
   m_SizeDelta: {x: 943.9592, y: 266.3803}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &787078565
@@ -306,7 +306,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 369c742c819e8db4c847cc43b5d81ac8, type: 3}
-    m_FontSize: 40
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -323,9 +323,7 @@ MonoBehaviour:
     CAIO CERANO SILVA 11201822405
 
     IGOR IWASHITA DE OLIVEIRA
-    11201822406
-
-    RAMON NERES TEIXEIRA JARDIM 11068616'
+    11201822406'
 --- !u!222 &787078566
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -453,7 +451,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -407}
+  m_AnchoredPosition: {x: 0, y: -220}
   m_SizeDelta: {x: 320, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &946776218
@@ -532,7 +530,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8c723d9e64f3daa49abe4d3ab9ebf564, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 622c605168b2ed245b60b6358690ac6c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -711,7 +709,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: -131.51328}
+  m_AnchoredPosition: {x: 3, y: -50}
   m_SizeDelta: {x: 943.9592, y: 269.8759}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1666588705
@@ -736,7 +734,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 369c742c819e8db4c847cc43b5d81ac8, type: 3}
-    m_FontSize: 40
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -750,14 +748,15 @@ MonoBehaviour:
   m_Text: 'Assets
 
 
-    Font - Pixeboy BY AbasCreative
-
-    Voices - Chen Jingji
+    Font - Pixeboy BY AbasCreative (https://www.fontspace.com/pixeboy-font-f43730)
 
     Soundtrack
-    - Igor Iwashita de Oliveira
+    - Igor Iwashita de Oliveira (https://bit.ly/36TfBOf)
 
-    Images - Caio Cerano Silva'
+    Voices - Chen Jingji
+    (Mesmo link acima)
+
+    Images - Caio Cerano Silva  (https://imgur.com/a/kSxsGS9)'
 --- !u!222 &1666588706
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -800,7 +799,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 387}
+  m_AnchoredPosition: {x: 0, y: 220}
   m_SizeDelta: {x: 1200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1712867296
@@ -825,7 +824,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 369c742c819e8db4c847cc43b5d81ac8, type: 3}
-    m_FontSize: 160
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1

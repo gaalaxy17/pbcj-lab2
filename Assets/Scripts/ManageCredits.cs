@@ -19,9 +19,10 @@ public class ManageCredits : MonoBehaviour
   
     }
 
+    /* Carrega a cena pricipal do jogo */
     public void Menu()
     {
-        SceneManager.LoadScene("Lab1_start");
+        SceneManager.LoadScene("Lab2_start");
     }
 
 }

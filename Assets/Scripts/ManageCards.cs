@@ -19,9 +19,9 @@ public class ManageCards : MonoBehaviour
     int hitCount = 0; // Número de matches (acertos)
     AudioSource okSound; // Som de sucesso
 
-    int lastGameScore = 0;
+    int lastGameScore = 0; // Variavel que salva o score da partida anterior
 
-    // Start is called before the first frame update
+    /* Start is called before the first frame update */
     void Start()
     {
         ShowCards();
@@ -31,7 +31,11 @@ public class ManageCards : MonoBehaviour
         GameObject.Find("lastPlayed").GetComponent<Text>().text = "Jogo Anterior: " + lastGameScore;
     }
 
-    // Update is called once per frame
+    /* 
+     * Update is called once per frame
+     * A cada frame, caso o timer esteja ativo, valida se as duas cartas escolhidas se referem a mesma tag, caso positivo, destroi as cartas e soma 1 no contador de acertos
+     * Caso contrário, esconde as cartas novamente 
+    */
     void Update()
     {
         if (triggeredTime)
@@ -56,6 +60,7 @@ public class ManageCards : MonoBehaviour
                 }
                 else
                 {
+                    GameObject.Find("errorSound").GetComponent<AudioSource>().Play();
                     card1.GetComponent<Tile>().HideCard();
                     card2.GetComponent<Tile>().HideCard();
                 }
@@ -77,6 +82,7 @@ public class ManageCards : MonoBehaviour
         }
     }
 
+    /* Exibe as cartas na tela */
     void ShowCards()
     {
         int[] shuffledArray = CreateShuffledArray();
@@ -91,6 +97,7 @@ public class ManageCards : MonoBehaviour
         }
     }
 
+    /* Adiciona uma nova carta, configurando os parametros do componente e carregando a sprite desejada */
     void AddCard(int row, int rank, int value)
     {
         GameObject center = GameObject.Find("CenterOfScreen");
@@ -99,19 +106,11 @@ public class ManageCards : MonoBehaviour
         float scaleFactorY = (945 * scaleX) / 100.0f;
 
         Vector3 newPos = new Vector3(center.transform.position.x + ((rank - 13 / 2) * scaleFactorX), center.transform.position.y + (row-2/2) * scaleFactorY, center.transform.position.z);
-        // GameObject c = (GameObject)(Instantiate(card, new Vector3(0, 0, 0), Quaternion.identity));
-        // GameObject c = (GameObject)(Instantiate(card, new Vector3(rank*1.5f, 0, 0), Quaternion.identity));
         GameObject c = (GameObject)(Instantiate(card, newPos, Quaternion.identity));
         c.tag = "" + (value + 1);
         c.name = "" + row + "_" + value ;
         string cardName = "";
         string cardNumber = "";
-
-        /* if (rank == 0) cardNumber = "ace";
-        else if (rank == 10) cardNumber = "jack";
-        else if (rank == 11) cardNumber = "queen";
-        else if (rank == 12) cardNumber = "king";
-        else cardNumber = "" + (rank + 1); */
 
         if (value == 0) cardNumber = "ace";
         else if (value == 10) cardNumber = "jack";
@@ -127,6 +126,7 @@ public class ManageCards : MonoBehaviour
 
     }
 
+    /* Cria um array de inteiros aleatório */
     public int[] CreateShuffledArray()
     {
         int[] newArray = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
@@ -141,6 +141,7 @@ public class ManageCards : MonoBehaviour
         return newArray;
     }
 
+    /* Seleciona as duas primeiras cartas clicadas */
     public void SelectedCard(GameObject card)
     {
         if (!isFirstCardSelected)
@@ -163,6 +164,7 @@ public class ManageCards : MonoBehaviour
 
     }
 
+    /* Aciona o temporizador que junto com o método update validam as cartas */
     public void VerifyCards()
     {
         TriggerTimer();
@@ -170,15 +172,16 @@ public class ManageCards : MonoBehaviour
         UpdateTries();
     }
 
+    /* Aciona o timer através da atribuição de valores nas variaveis de controle do timer */
     public void TriggerTimer()
     {
         pausedTimer = false;
         triggeredTime = true;
     }
 
+    /* Atualiza o contador de tentativas em tela */
     void UpdateTries()
     {
-        print(triesCount);
         GameObject.Find("triesCount").GetComponent<Text>().text = "Tentativas: " + triesCount;
     }
 
