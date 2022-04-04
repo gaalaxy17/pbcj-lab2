@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ManageEnd : MonoBehaviour
 {
-    public GameObject message; // Mensagem exibida no topo da tela de finalização
+    public GameObject message; // Mensagem exibida no topo da tela de finalizaï¿½ï¿½o
 
     /* Start is called before the first frame update */
     void Start()
@@ -45,7 +45,7 @@ public class ManageEnd : MonoBehaviour
     {
         SceneManager.LoadScene("Lab2");
     }
-    /* Carrega a cena de créditos */
+    /* Carrega a cena de crï¿½ditos */
     public void GoToCredits()
     {
         SceneManager.LoadScene("Lab2_endCredits");
@@ -53,6 +53,6 @@ public class ManageEnd : MonoBehaviour
     /* Fecha o jogo */
     public void QuitGame()
     {
-        
+        Application.Quit();
     }
 }
