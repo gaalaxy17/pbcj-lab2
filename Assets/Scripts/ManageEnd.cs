@@ -7,16 +7,11 @@ using UnityEngine.SceneManagement;
 public class ManageEnd : MonoBehaviour
 {
     public GameObject message;
-    public GameObject lastHiddenWord; // Palavra selecionada
 
     // Start is called before the first frame update
     void Start()
     {
-        this.message = GameObject.Find("message");
-        this.lastHiddenWord = GameObject.Find("lastHiddenWord");
-        
-        this.lastHiddenWord.GetComponent<Text>().text = PlayerPrefs.GetString("lastHiddenWord");
-        
+        this.message = GameObject.Find("message");                
         PlayerPrefs.SetInt("score", 0);
 
         this.HandleStatusCondition(PlayerPrefs.GetString("status"));
@@ -51,5 +46,9 @@ public class ManageEnd : MonoBehaviour
     public void GoToCredits()
     {
         SceneManager.LoadScene("Lab2_endCredits");
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
